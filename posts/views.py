@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+
 from .models import Post
 
-def test(request):
-    return HttpResponse(Post.objects.all())
+
+def post_list(request):
+    posts = Post.objects.all()
+    return render(request, 'list.html', {'posts':posts})
 
