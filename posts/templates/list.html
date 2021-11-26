@@ -6,12 +6,17 @@
     <h1>Lista postów</h1>
     <ol>
     {% for post in posts%}
+
         {% if post.sponsored == True %}
         <h1>{{post.title}}(sponsored)</h1>
+        <p>{{post.content}}</p>
         <p>{{post.id}} {{post.created}}</p>
+
         {% else %}
         <h1>{{post.title}}</h1>
+        <p>{{post.content}}</p>
         <p>{{post.id}} {{post.created}}</p>
+
         {% endif %}
     {% endfor %}
     </ol>

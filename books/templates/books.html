@@ -1,0 +1,15 @@
+{% extends 'main/main.html' %}
+
+{% block title %}Lista postów{% endblock %}
+
+{% block content %}
+    <h1>Lista postów</h1>
+    <ol>
+    {% for book in books %}
+        <h1>{{book.title}}</h1>
+        <p>{{book.description}}</p>
+        <p>{{book.publication_year}} {{book.author}}</p>
+
+    {% endfor %}
+    </ol>
+{% endblock %}
