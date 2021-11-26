@@ -1,16 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'main/main.html' %}
+
+{% block title %}Lista postów{% endblock %}
+
+{% block content %}
     <h1>Lista postów</h1>
     <ol>
     {% for post in posts%}
+        {% if post.sponsored == True %}
+        <h1>{{post.title}}(sponsored)</h1>
+        <p>{{post.id}} {{post.created}}</p>
+        {% else %}
         <h1>{{post.title}}</h1>
         <p>{{post.id}} {{post.created}}</p>
+        {% endif %}
     {% endfor %}
     </ol>
-</body>
-</html>
+{% endblock %}
