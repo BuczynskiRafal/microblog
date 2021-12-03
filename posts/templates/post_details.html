@@ -1,0 +1,12 @@
+{% extends 'main/main.html' %}
+
+{% block title %}Szczegóły posta {% endblock %}
+
+{% block content %}
+    <h1>{{detail.title}} </h1>
+    <p>{{detail.content}}</p>
+    <p>{{detail.id}} {{detail.created}}</p>
+    {% if detail.sponsored %}
+        (Post sponsorowany)
+    {% endif %}
+{% endblock %}

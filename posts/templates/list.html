@@ -1,23 +1,14 @@
 {% extends 'main/main.html' %}
 
-{% block title %}Lista postów{% endblock %}
+{% block title %}Szczegóły posta{% endblock %}
 
 {% block content %}
-    <h1>Lista postów</h1>
-    <ol>
+    <h1>Szczegóły posta</h1>
+    <ul>
     {% for post in posts%}
-
-        {% if post.sponsored == True %}
-        <h1>{{post.title}}(sponsored)</h1>
-        <p>{{post.content}}</p>
-        <p>{{post.id}} {{post.created}}</p>
-
-        {% else %}
-        <h1>{{post.title}}</h1>
-        <p>{{post.content}}</p>
-        <p>{{post.id}} {{post.created}}</p>
-
-        {% endif %}
+        <li>
+        <p><a href="/posts/{{ post.id }}">{{post.title}}</a></p>
+        </li>
     {% endfor %}
-    </ol>
+    </ul>
 {% endblock %}
