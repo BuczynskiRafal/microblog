@@ -8,4 +8,4 @@ class Book(models.Model):
     available = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"Klasa -> {self.__class__.__name__} | książka {self.title}"
+        return f"Klasa -> {self.__class__.__name__} | książka -> {self.title}"
