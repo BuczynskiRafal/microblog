@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+</head>
+<body>
+    <header>
+        To jest header
+    </header>
+
+    <nav>
+        <ul>
+            <li>
+                <a href="{% url 'main:main_view' %}">Strona główna</a>
+            </li>
+            <li>
+                <a href="{% url 'posts:list' %}">Lista postów</a>
+            </li>
+        </ul>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer>
+        <nav>
+            <ul>
+                <li>
+                    <a href="{% url 'main:about' %}">O nas</a>
+                </li>
+            </ul>
+        </nav>
+    </footer>
+
+</body>
+</html>
