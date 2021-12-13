@@ -1,6 +1,8 @@
+{% load static %}
 {% extends 'base.html' %}
-
 {% block title %}Szczegóły posta{% endblock %}
+
+{% block style %}<link href="{% static 'posts/css/style.css' %}" rel="stylesheet">{% endblock %}
 
 {% block content %}
     <h1>Szczegóły posta</h1>
