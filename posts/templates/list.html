@@ -1,16 +1,36 @@
-{% load static %}
 {% extends 'base.html' %}
-{% block title %}Szczegóły posta{% endblock %}
 
-{% block style %}<link href="{% static 'posts/css/style.css' %}" rel="stylesheet">{% endblock %}
+{% load static %}
+
+{% block title %}Lista postów{% endblock %}
+
+{% block style %}
+<link href="{% static 'main/css/style.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
-    <h1>Szczegóły posta</h1>
-    <ul>
-    {% for post in posts%}
-        <li>
-        <p><a href="{% url 'posts:details' post.id %}">{{post.title}}</a></p>
-        </li>
-    {% endfor %}
-    </ul>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tytuł</th>
+                <th scope="col">Utworzono</th>
+                <th scope="col">Zmodyfikowano</th>
+                <th scope="col">Sponsorowany</th>
+            </tr>
+        </thead>
+    <tbody>
+        {% for post in posts %}
+            <tr>
+                <th scope="row">{{post.id}}</th>
+                <td><a href="{% url 'posts:details' post.id %}">{{post.title}}</a></td>
+                <td>{{post.created }}</td>
+                <td> {{post.modified | date:"D d M Y"}}</td>
+                <td> {% if post.sponsored %}
+                    (sponsorowany)
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
 {% endblock %}

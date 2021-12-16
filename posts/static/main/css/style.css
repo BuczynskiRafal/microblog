@@ -1,1 +1,16 @@
-li:nth-child(odd) a {background-color: darkolivegreen;}
+ul {
+    list-style-type: none;
+}
+
+ul li:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+ul li:nth-child(odd) a {
+    color: #000;
+    text-decoration: none;
+}
+
+ul li a:hover {
+    color: #d00149;
+}
