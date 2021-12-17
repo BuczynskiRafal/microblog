@@ -5,6 +5,8 @@
 {% block title %}Lista ksiażek{% endblock %}
 
 {% block content %}
+<h1>{{book.title}}</h1>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -17,19 +19,15 @@
     </tr>
   </thead>
   <tbody>
-    {% for book in books %}
-      <tr onclick="window.location='{{ book.pk }}';">
-        <th scope="row">{{book.pk}}</th>
-        <td>{{book.title}}</td>
-        <td>{{book.author}} </td>
-        <td>{{book.description}}</td>
-        <td>{{book.publication_year}} </td>
-        <td>{% if book.available == True %}Dostępna {% else %}Wypożyczona{%endif%}</td>
-      </tr>
-    {% endfor %}
+  {{book}}
+    <tr>
+      <th scope="row">{{book.pk}}</th>
+      <td>{{book.title}} </td>
+      <td>{{book.author}} </td>
+      <td>{{book.description}}</td>
+      <td>{{book.publication_year}} </td>
+      <td>{% if book.available == True %}Dostępna {% else %}Wypożyczona{%endif%}</td>
+    </tr>
   </tbody>
 </table>
-
-
-
 {% endblock %}
