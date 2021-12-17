@@ -17,10 +17,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'django_extensions',
-    'main',
-    'posts',
-    'books',
+    'import_export',
+    
+    'main.apps.MainConfig',
+    'posts.apps.PostsConfig',
+    'books.apps.BooksConfig',
+    'tags.apps.TagsConfig',
 ]
 
 MIDDLEWARE = [

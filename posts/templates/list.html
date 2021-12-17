@@ -4,11 +4,8 @@
 
 {% block title %}Lista postów{% endblock %}
 
-{% block style %}
-<link href="{% static 'main/css/style.css' %}" rel="stylesheet">
-{% endblock %}
-
 {% block content %}
+<table class="table table-striped">
     <table class="table table-striped">
         <thead>
             <tr>
@@ -33,4 +30,5 @@
             </tr>
         {% endfor %}
     </tbody>
+</table>
 {% endblock %}
