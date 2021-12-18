@@ -5,8 +5,6 @@
 {% block title %}Lista ksiażek{% endblock %}
 
 {% block content %}
-<h1>{{book.title}}</h1>
-
 <table class="table table-striped">
   <thead>
     <tr>
@@ -19,7 +17,6 @@
     </tr>
   </thead>
   <tbody>
-  {{book}}
     <tr>
       <th scope="row">{{book.pk}}</th>
       <td>{{book.title}} </td>

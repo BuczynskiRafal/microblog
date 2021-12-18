@@ -3,10 +3,20 @@
 {% block title %}Szczegóły posta {% endblock %}
 
 {% block content %}
-    <h1>{{detail.title}} </h1>
-    <p>{{detail.content}}</p>
-    <p>{{detail.id}} {{detail.created}}</p>
-    {% if detail.sponsored %}
-        (Post sponsorowany)
-    {% endif %}
+    <div class="row">
+        <div class="col-md-9">
+            <h1>{{detail.title}} </h1>
+            <div>
+                {{ detail.content }}
+            </div>
+            {% if detail.file %}
+                <div>
+                    Pobierz<a href="{{detail.file.url}}">przykład</a> 
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-md-3">
+            <img src="{{ detail.image.url }}">
+        </div>
+    </div>
 {% endblock %}

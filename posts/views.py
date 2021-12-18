@@ -4,10 +4,13 @@ from .models import Post
 
 
 def post_list(request):
-    posts = Post.objects.all()
+    posts = Post.objects.filter(published=True)
     return render(request, 'list.html', {'posts': posts})
 
 
 def post_details(request, post_id: int):
     detail = Post.objects.get(pk=post_id)
-    return render(request, 'post_details.html', {'detail': detail})
+    context = {}
+    if detail.published:
+        context['detail'] = detail
+    return render(request, 'post_details.html', context)
