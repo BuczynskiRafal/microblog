@@ -1,6 +1,12 @@
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth import get_user_model
+
+from main.forms import ContactForm
+from main.forms import UserProfileForm
+
 from . import services
 from .forms import ContactForm
 
@@ -22,3 +28,12 @@ def contact(request):
     else:
         form = ContactForm()
     return render(request, 'main/contact.html', {'form': form})
+
+
+def user_profile(request, user_id):
+    user = get_object_or_404(get_user_model(), id=user_id)
+    if request.method == "POST":
+        try:
+            profile = user.userprofile
+        except:
+            pass
