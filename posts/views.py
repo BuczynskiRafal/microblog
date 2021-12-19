@@ -1,8 +1,10 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import redirect
 
 from .models import Post
-from .form import PostForm
+from .forms import PostForm
 
 
 def post_list(request):
@@ -22,12 +24,12 @@ def post_details(request, post_id: int):
 
 
 def add_post(request):
-    if request.method == 'POST':
-        post_form = PostForm(request.POST or None)
+    if request.method == 'POST' and request.user.is_authenticated:
+        post_form = PostForm(request.POST)
         if post_form.is_valid():
-            post = post_form.save()
-            return redirect(post_list)
-        return render(request, 'add_post.html', {'post_form': post_form})
+            post_form.cleaned_data['author'] = request.user
+            post = Post.objects.create(**post_form.cleaned_data)
+            return HttpResponseRedirect(reverse("posts:add_post"))
     else:
         post_form = PostForm()
     return render(request, 'add_post.html', {'post_form': post_form})
