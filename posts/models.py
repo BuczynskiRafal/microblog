@@ -14,7 +14,8 @@ class Post(Timestamped):
     tags = models.ManyToManyField('tags.Tag', related_name='posts')
     category = models.ManyToManyField('posts.Category', related_name='category', blank=True)
     file = models.FileField(upload_to='posts/image', null=True)
-    image = models.FileField(upload_to='posts/image/%Y/%m/%d/', null=True, width_field='image_width')
+    image_field = models.ImageField(upload_to='post/images/%Y/%m/%d/', null=True, width_field='image_width')
+    image_width = models.IntegerField(blank=True, null=True, editable=False)
 
     def __str__(self):
         return f"Klasa -> {self.__class__.__name__} | \n artykuł -> {self.title}"

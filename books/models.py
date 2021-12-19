@@ -7,9 +7,6 @@ class Author(Timestamped):
     birth_year = models.IntegerField(blank=True, null=True)
     death_year = models.IntegerField(blank=True, null=True)
     biogram = models.TextField(blank=True, null=True)
-    birth_year = models.IntegerField()
-    death_year = models.IntegerField(blank=True, null=True)
-    biogram = models.TextField()
 
     def __str__(self):
         return f"{self.name} <{self.birth_year}>"
