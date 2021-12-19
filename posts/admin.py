@@ -14,6 +14,7 @@ class PostResource(resources.ModelResource):
 class PostAdmin(ExportMixin, admin.ModelAdmin):
     list_display = ['title', 'published', 'created', 'modified', 'sponsored']
     fields = ['title', 'content', 'published', 'sponsored', 'author', 'category', 'file']
+    fields = ['title', 'published']
     list_filter = ['published', 'sponsored']
     resource_class = PostResource
 
