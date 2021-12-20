@@ -35,5 +35,19 @@ def user_profile(request, user_id):
     if request.method == "POST":
         try:
             profile = user.userprofile
-        except:
+            form = UserProfileForm(request.POST, instance=profile)
+        except AttributeError:
             pass
+        if form.is_valid():
+            form.save()
+    else:
+        try:
+            profile = user.userprofile
+            form = UserProfileForm(instance=profile)
+        except AttributeError:
+            form = UserProfileForm(initial={"user":user, "bio": ""})
+        if request.user != user:
+            for field in form.fields:
+                form.fields[field].disabled = True
+            form.helper.inputs = []
+    return render(request, 'main/userprofile.html', {'form': form})

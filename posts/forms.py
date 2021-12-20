@@ -6,11 +6,16 @@ from django.forms import ModelForm
 from .models import Post
 
 
-class PostForm(forms.Form):
-    title = forms.CharField(label='Tytuł')
-    content = forms.CharField(widget=forms.Textarea, label='Treść')
-    sponsored = forms.BooleanField(required=False, label='Sponsorowny')
-    published = forms.BooleanField(required=False, label='Opublikowany')
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'sponsored', 'published']
+        labels = {
+            "title": "Tytuł",
+            "content": "Treść",
+            "published": "Opublikowany",
+            "sponsored": "Sponsorowany",
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

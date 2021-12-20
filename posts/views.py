@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404
 
 from .models import Post
 from .forms import PostForm
@@ -34,3 +35,16 @@ def add_post(request):
         post_form = PostForm()
     return render(request, 'add_post.html', {'post_form': post_form})
 
+
+def edit_post(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    if request.method == "POST":
+        post_form = PostForm(request.POST, instance=post)
+        if post_form.is_valid():
+            instance = post_form.save(commit=False)
+            instance.author = request.user
+            instance.save()
+            return HttpResponseRedirect(reverse("posts:add_post"))
+    else:
+        post_form = PostForm(instance=post)
+    return render(request, 'main/add.html', {'post_form': post_form})
