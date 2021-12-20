@@ -4,6 +4,7 @@ from import_export.admin import ImportExportModelAdmin
 
 from .models import Book
 from .models import Author
+from .models import Borrow
 
 
 class BookResource(resources.ModelResource):
@@ -31,3 +32,15 @@ class AuthorAdmin(ImportExportModelAdmin):
     list_filter = ['name',]
     resource_class = AuthorResource
 
+
+class BookBorrowResource(resources.ModelResource):
+    class Meta:
+        model = Book
+
+
+@admin.register(Borrow)
+class BookBorrowAdmin(ImportExportModelAdmin):
+    list_display = ['book', 'user', 'borrow_date', 'return_date']
+    search_fields = ['book', 'user',]
+    list_filter = ['borrow_date',]
+    resource_class = BookBorrowResource

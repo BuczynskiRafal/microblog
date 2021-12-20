@@ -5,27 +5,21 @@
 {% block title %}Lista ksiażek{% endblock %}
 
 {% block content %}
-<h1>{{book.title}}</h1>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Tytuł</th>
-      <th scope="col">Autor</th>
-      <th scope="col">Opis</th>
-      <th scope="col">Data publikacji</th>
-      <th scope="col">Dostępny</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">{{book.pk}}</th>
-      <td>{{book.title}} </td>
-      <td>{{book.author}} </td>
-      <td>{{book.description}}</td>
-      <td>{{book.publication_year}} </td>
-      <td>{% if book.available == True %}Dostępna {% else %}Wypożyczona{%endif%}</td>
-    </tr>
-  </tbody>
-</table>
+  <h1>{{book.title}}</h1>
+  <div class="row">
+    <div class="col-md-6 text-center">{% if book.cover %}<img src="{{ book.cover.url }}">{% endif %}</div>
+    <div class="col-md-6">
+      <div>Autor: {{ book.author }}</div>
+      <div>Rok wydania: {{ book.publication_year }}</div>
+      <div>Opis:</div>
+      <div> {{ book.description }}</div>
+      <div>
+        {% if book.available %}
+          <div class="alert alert-success" role="alert">Dostępna</div>
+        {% else %}
+        <div class="alert alert-danger" role="alert">Wypożyczona</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
 {% endblock %}
