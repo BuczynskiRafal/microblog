@@ -20,6 +20,7 @@ class Book(Timestamped):
     author = models.CharField(max_length=255)
     available = models.BooleanField(default=True)
     tags = models.ManyToManyField("tags.Tag", related_name="books", blank=True)
+    cover = models.ImageField(upload_to='books/covers/%Y/%m/d', blank=True, null=True)
 
     def __str__(self):
         return f"Klasa -> {self.__class__.__name__} | książka -> {self.title}"
