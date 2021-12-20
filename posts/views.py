@@ -26,10 +26,11 @@ def post_details(request, post_id: int):
 
 def add_post(request):
     if request.method == 'POST' and request.user.is_authenticated:
-        post_form = PostForm(request.POST)
+        post_form = PostForm(request.POST, request.FILES)
         if post_form.is_valid():
-            post_form.cleaned_data['author'] = request.user
-            post = Post.objects.create(**post_form.cleaned_data)
+            instance = post_form.save(commit=False)
+            instance.author = request.user
+            instance.save()
             return HttpResponseRedirect(reverse("posts:add_post"))
     else:
         post_form = PostForm()
@@ -39,11 +40,9 @@ def add_post(request):
 def edit_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     if request.method == "POST":
-        post_form = PostForm(request.POST, instance=post)
+        post_form = PostForm(request.POST, request.FILES, instance=post)
         if post_form.is_valid():
-            instance = post_form.save(commit=False)
-            instance.author = request.user
-            instance.save()
+            post_form.save()
             return HttpResponseRedirect(reverse("posts:add_post"))
     else:
         post_form = PostForm(instance=post)
