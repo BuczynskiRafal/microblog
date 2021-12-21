@@ -40,5 +40,18 @@ def handle_book_borrows(request, book_id):
                 Borrow.objects.create(user=user, book=book)
                 book.available = False
                 book.save()
-    return HttpResponseRedirect(reverse("books:details", args=[book_id]))
-
+                return HttpResponseRedirect(reverse("books:details", args=[book_id]))
+            else:
+                keys = [key for key in request.POST.keys() if key.startswitch( "book_" )]
+                key = int( keys[0].split( "_" )[1] )
+                book = Book.objects.get( pk=key )
+                borrow = Borrow.objects.filter( user=user, book=book ).last()
+                if not borrow.return_date:
+                    borrow.return_date = timezone.now()
+                    borrow.save()
+                    book.available = True
+                    book.save()
+                return HttpResponseRedirect(reverse("borrows_list"))
+    else:
+        borrows = Borrow.objects.filter(user=user)
+        return render(request, "borrows_list", {"borrows": borrows})

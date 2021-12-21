@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% load static %}
 
@@ -18,6 +19,11 @@
           <div class="alert alert-success" role="alert">Dostępna</div>
         {% else %}
         <div class="alert alert-danger" role="alert">Wypożyczona</div>
+        {% endif %}
+      </div>
+      <div>
+        {% if book.available %}
+          {% crispy form %}
         {% endif %}
       </div>
     </div>
