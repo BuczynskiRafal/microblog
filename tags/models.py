@@ -7,7 +7,7 @@ class Tag(models.Model):
     slug = models.SlugField(unique=True, max_length=100)
 
     def __str__(self):
-        return f"{self.name} with slug: {self.slug}"
+        return f"{self.name}"
 
     def save(self, *args, **kwargs):
         if not self.slug:

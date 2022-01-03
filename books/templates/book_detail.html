@@ -1,31 +1,27 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
-{% load static %}
-
-{% block title %}Lista ksiażek{% endblock %}
+{% block title %}{{book.title}}{% endblock %}
 
 {% block content %}
   <h1>{{book.title}}</h1>
   <div class="row">
     <div class="col-md-6 text-center">{% if book.cover %}<img src="{{ book.cover.url }}">{% endif %}</div>
     <div class="col-md-6">
-      <div>Autor: {{ book.author }}</div>
-      <div>Rok wydania: {{ book.publication_year }}</div>
-      <div>Opis:</div>
-      <div> {{ book.description }}</div>
       <div>
         {% if book.available %}
           <div class="alert alert-success" role="alert">Dostępna</div>
         {% else %}
-        <div class="alert alert-danger" role="alert">Wypożyczona</div>
+          <div class="alert alert-danger" role="alert">Wypożyczona</div>
         {% endif %}
       </div>
-      <div>
-        {% if book.available %}
-          {% crispy form %}
-        {% endif %}
-      </div>
+      <div>Autor: {{ book.author }}</div>
+      <div>Rok wydania: {{ book.publication_year }}</div>
+      <div>Opis:</div>
+      <div> {{ book.description }}</div>
+      {% if book.available %}
+        {% crispy form %}
+      {% endif %}
     </div>
   </div>
 {% endblock %}
