@@ -31,7 +31,7 @@ def add_book(request):
     return render(request, "add.html", {"form": form})
 
 
-def handle_book_borrows(request, book_id):
+def handle_book_borrows(request, book_id=None):
     user = request.user
     if request.method == "POST":
         if user.is_authenticated:
@@ -51,7 +51,7 @@ def handle_book_borrows(request, book_id):
                     borrow.save()
                     book.available = True
                     book.save()
-                return HttpResponseRedirect(reverse("books:borrows"))
+                return HttpResponseRedirect(reverse("books:borrows_list"))
     else:
         borrows = Borrow.objects.filter(user=user)
         return render(request, "borrows_list.html", {"borrows": borrows})

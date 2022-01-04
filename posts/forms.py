@@ -1,15 +1,26 @@
+from django.contrib import admin
+from django.contrib.admin.widgets import AutocompleteSelectMultiple
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset, ButtonHolder
 from django import forms
 
 from django.forms import ModelForm
 from .models import Post
+from tags.models import Tag
 
 
 class PostForm(forms.ModelForm):
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.all(),
+        widget=AutocompleteSelectMultiple(
+            Post._meta.get_field('tags'),
+            admin.AdminSite(),
+        )
+    )
+
     class Meta:
         model = Post
-        fields = ['title', 'content', 'sponsored', 'published', 'image_field',]
+        fields = ['title', 'content', 'sponsored', 'published', 'image_field', 'tags']
         labels = {
             "title": "Tytuł",
             "content": "Treść",
@@ -29,6 +40,8 @@ class PostForm(forms.ModelForm):
                 'content',
                 'published',
                 'sponsored',
+                'image',
+                'tags',
             ),
             ButtonHolder(
                 Submit('submit', 'Dodaj', css_class='btn btn primary'),

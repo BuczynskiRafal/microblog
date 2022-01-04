@@ -9,7 +9,7 @@
         </thead>
         <tbody>
         {% for borrow in borrows %}
-            <form action="{% url 'books:borrows' borrow.id %}" method="post">
+            <form action="{% url 'books:borrows_list' %}" method="post">
             {% csrf_token %}
             <tr>
                 <td>{{ borrow.book.title }}</td>
