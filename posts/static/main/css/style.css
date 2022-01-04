@@ -14,3 +14,13 @@ ul li:nth-child(odd) a {
 ul li a:hover {
     color: #d00149;
 }
+
+li:nth-child(odd) a {background-color: lavender;}
+.select2-selection_rendered {
+    border: 1px solid lightgray;
+}
+
+.select2-container {
+    min-width: 15em !important;
+    width: 100% !important;
+}

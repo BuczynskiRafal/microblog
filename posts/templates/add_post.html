@@ -1,6 +1,18 @@
 {% extends "base.html" %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block title %} Dodaj post{% endblock %}
+
+{% block style %}
+    <link href="{% static 'posts/css/style.css' %}" rel="stylesheet">
+    {{ form.media }}
+{% endblock %}
+
+{% block additional_scripts %}
+    <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+    {{ form.media }}
+{% endblock %}
+
 {% block content %}
-{% crispy post_form %}
+    {% crispy post_form %}
 {% endblock %}

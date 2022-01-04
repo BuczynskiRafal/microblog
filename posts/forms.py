@@ -3,6 +3,7 @@ from django.contrib.admin.widgets import AutocompleteSelectMultiple
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset, ButtonHolder
 from django import forms
+from dal import autocomplete
 
 from django.forms import ModelForm
 from .models import Post
@@ -12,10 +13,7 @@ from tags.models import Tag
 class PostForm(forms.ModelForm):
     tags = forms.ModelMultipleChoiceField(
         queryset=Tag.objects.all(),
-        widget=AutocompleteSelectMultiple(
-            Post._meta.get_field('tags'),
-            admin.AdminSite(),
-        )
+        widget=autocomplete.ModelSelect2Multiple(url='tags:tag-autocomplete'),
     )
 
     class Meta:
@@ -40,7 +38,7 @@ class PostForm(forms.ModelForm):
                 'content',
                 'published',
                 'sponsored',
-                'image',
+                'image_field',
                 'tags',
             ),
             ButtonHolder(

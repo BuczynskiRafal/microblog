@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import redirect
 from django.shortcuts import get_object_or_404
+from django.core.paginator import Paginator
 
 from .models import Post
 from .forms import PostForm
@@ -13,7 +14,10 @@ def post_list(request):
     q = request.GET.get('q')
     if q:
         posts = posts.filter(title__icontains=q)
-    return render(request, 'list.html', {'posts': posts})
+    paginator = Paginator(posts, 10)
+    page_number = request.GET.get('page')
+    posts_list = paginator.get_page(page_number)
+    return render(request, 'list.html', {'posts_list': posts_list})
 
 
 def post_details(request, post_id: int):
@@ -31,6 +35,7 @@ def add_post(request):
             instance = post_form.save(commit=False)
             instance.author = request.user
             instance.save()
+            post_form.save_m2m()
             return HttpResponseRedirect(reverse("posts:add_post"))
     else:
         post_form = PostForm()
