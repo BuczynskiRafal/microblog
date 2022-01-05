@@ -10,6 +10,8 @@ urlpatterns = [
     path('', include('main.urls')),
     path('', include('posts.urls')),
     path('books/', include('books.urls')),
-    path('tags/', include('tags.urls'))
+    path('tags/', include('tags.urls')),
+    path('', include('register.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
               + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
