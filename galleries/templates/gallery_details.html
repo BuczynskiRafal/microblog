@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% block title %}Galerie{% endblock %}
+{% block content %}
+ <div class="container">
+     <div class="row">
+         <div class="col">
+             <h1>{{ gallery.title }}</h1>
+             <section class="photo_gallery">
+                {% for gallery_image in gallery.photos.all %}
+                    {% if gallery_image.is_published %}
+                        {% thumbnail gallery_image.image "x300" as im %}
+                            <a href="{{ gallery_image.image.url }}">
+                                <img src="{{ im.url }}" alt=""/>
+                            </a>
+                        {% endthumbnail %}
+                    {% endif %}
+                {% endfor %}
+             </section>
+         </div>
+     </div>
+ </div>
+{% endblock %}
+{% block additional_scripts %}
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.7.0/simple-lightbox.min.js"
+integrity="sha512-ZajFBgnksNp8Rj+AbmYe8ueOu45HiSjtf3QpqnRbHlq719m6VK0FkbYIqQ8wEnlVuJ1i9pC+z6Z9ewmDnUTMC
+g==" crossorigin="anonymous"></script>
+ <script>
+ var gallery = new SimpleLightbox('.photo_gallery a');
+ </script>
+{% endblock %}

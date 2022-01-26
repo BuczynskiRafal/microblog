@@ -11,6 +11,7 @@ urlpatterns = [
     path('', include('posts.urls')),
     path('books/', include('books.urls')),
     path('tags/', include('tags.urls')),
+    path('galleries/', include('galleries.urls')),
     path('', include('register.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \

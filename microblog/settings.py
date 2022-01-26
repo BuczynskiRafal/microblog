@@ -23,12 +23,14 @@ INSTALLED_APPS = [
     'django_extensions',
     'import_export',
     'crispy_forms',
+    'sorl.thumbnail',
     
     'main.apps.MainConfig',
     'posts.apps.PostsConfig',
     'books.apps.BooksConfig',
     'tags.apps.TagsConfig',
     'register.apps.RegisterConfig',
+    'galleries.apps.GalleriesConfig',
 ]
 
 MIDDLEWARE = [
@@ -93,12 +95,14 @@ USE_L10N = True
 
 USE_TZ = True
 
-MEDIA_ROOT = BASE_DIR, 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_DIRS =[BASE_DIR / "static", os.path.join(BASE_DIR, 'static'),]
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
+STATIC_DIR =[BASE_DIR / "static", os.path.join(BASE_DIR, 'static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
