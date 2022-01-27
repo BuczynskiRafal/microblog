@@ -1,9 +1,7 @@
 from django import forms
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Fieldset, ButtonHolder
 
-from .models import Gallery
-from .models import Photo
+from galleries.models import Gallery
+from galleries.models import Photo
 
 
 class GalleryForm(forms.ModelForm):

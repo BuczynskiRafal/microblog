@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
 {% block title %}Galerie{% endblock %}
+{% block style %}
+ <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.7.0/simple-lightbox.css"
+integrity="sha512-8WAX0xL/cHZ38RXoX2gtuqkAwmDVAzGwoFVmHvn46IDHGWOjTHx0vcl9OapNrfOzpFtql0SNkv+0y0b5Fm8Zk
+A==" crossorigin="anonymous"/>
+{% endblock %}
 {% block content %}
- <div class="container">
+<div class="container">
      <div class="row">
          <div class="col">
              <h1>{{ gallery.title }}</h1>

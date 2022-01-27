@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
-{% block title %}Galerie{% endblock %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
 
+{% block title %}Galerie{% endblock %}
 {% block content %}
     <div class="row">
         {% for gallery in page_obj %}
@@ -20,13 +22,14 @@
             </div>
         {% endfor %}
     </div>
+    {% if page_obj %}
     <div class="row">
         <div class="pagination">
             <span class="step-links">
-                    {% if page_obj.has_previous %}
-                        <a href="?page=1">&laquo; first</a>
-                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                    {% endif %}
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
                 <span class="current">
                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                 </span>
@@ -34,7 +37,61 @@
                     <a href="?page={{ page_obj.next_page_number }}">next</a>
                     <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
                 {% endif %}
+                {% endif %}
+                {% if gallery_form %}
+                    <div class="row">
+                        <div class="col-6 offset-md-3">
+                            <form id="gallery_form" method="post" action=".">
+                                {% csrf_token %}
+                                {{ gallery_form|crispy }}
+                                <input type="submit" name="submit" value="Submit" class="btn btn-primary"/>
+                            </form>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if photo_form %}
+                    <div class="row">
+                        <h2>Dodaje zdjęcie do galerii: {{ gallery.title }}</h2>
+                        <div>
+                            {% for photo in gallery.photos.all %}
+                                {% thumbnail gallery_image.image "x80" as im %}
+                                    <img src="{{ im.url }}" alt=""/>
+                                {% endthumbnail %}
+                            {% endfor %}
+                        </div>
+                        <div class="col-6 offset-md-3">
+                            <form id="pet_form" method="post" action="." enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ photo_form|crispy }}
+                                <input type="submit" name="submit" value="Submit" class="btn btn-primary"/>
+                            </form>
+                        </div>
+                    </div>
+                {% endif %}
             </span>
         </div>
     </div>
 {% endblock %}
+{% block additional_scripts %}
+    {{ gallery_form.media }}
+    <script>
+        let form = document.querySelectorAll(".photo-form")
+        let container = document.querySelector("#form-container")
+        let addButton = document.querySelector("#add-form")
+        let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
+        let formNum = form.length - 1
+        addButton.addEventListener("click", addForm)
+        function addForm(e) {
+            e.preventDefault()
+            let newForm = form[0].cloneNode(true)
+            let formRegex = RegExp(`form-(\\d){1}-`, "g")
+            formNum++
+            newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
+            container.insertBefore(newForm, addButton)
+            totalForms.setAttribute("value", `${formNum + 1}`)
+        }
+    </script>
+{% endblock %}
+
+
+

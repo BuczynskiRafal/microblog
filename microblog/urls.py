@@ -8,7 +8,7 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
-    path('', include('posts.urls')),
+    path('posts/', include('posts.urls')),
     path('books/', include('books.urls')),
     path('tags/', include('tags.urls')),
     path('galleries/', include('galleries.urls')),

@@ -1,25 +1,15 @@
-import random
-import string
-from random import random
 from django.db import models
 from django.utils.text import slugify
 
 from common.models import Timestamped
+from common.models import upload_to
+from common.models import get_random_text
 
 
 class Status(models.IntegerChoices):
     NEW = 1, 'new'
     HIDE = 2, 'hide'
     PUBLISHED = 3, 'published'
-
-
-def upload_to(instance, filename):
-    return f"galleries/{instance.gallery.slug}/{filename}"
-
-
-def get_random_text(n):
-    letters = string.ascii_letters
-    return ''.join(random.choice(letters) for i in range(n))
 
 
 class Gallery(Timestamped):
@@ -45,8 +35,6 @@ class Gallery(Timestamped):
                         break
                 self.slug = slug
         return super().save(*args, **kwargs)
-
-
 
 
 class Photo(Timestamped):

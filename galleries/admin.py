@@ -23,5 +23,5 @@ class PhotoResource(resources.ModelResource):
 
 @admin.register(Photo)
 class PhotoAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug', 'short_description', 'image', 'gallery', 'created', 'modified', 'source', 'status',]
+    list_display = ['title', 'short_description', 'image', 'gallery', 'created', 'modified', 'source', 'status',]
 

@@ -21,7 +21,7 @@ def galleries_list(request):
 
 
 def gallery_details(request, gallery_id):
-    gallery = Gallery.objects.filter(pk=gallery_id)
+    gallery = Gallery.objects.get(pk=gallery_id)
     return render(request, 'gallery_details.html', {'gallery': gallery})
 
 
@@ -40,7 +40,7 @@ def add_gallery_view(request):
 def add_photo_view(request, gallery_id):
     """Add new photo to database."""
     gallery = Gallery.objects.get(pk=gallery_id)
-    form = PhotoForm()
+    photo_form = PhotoForm()
     if request.method == "POST":
         form = PhotoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -50,7 +50,6 @@ def add_photo_view(request, gallery_id):
         return HttpResponseRedirect(reverse("galleries:add_photo", args=[gallery_id]))
     return render(
         request,
-        'list.html',
-        {'photo_form': form, 'gallery': gallery}
+        'galleries.html',
+        {'photo_form': photo_form, 'gallery': gallery}
     )
-
