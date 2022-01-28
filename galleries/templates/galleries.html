@@ -54,7 +54,7 @@
                         <h2>Dodaje zdjęcie do galerii: {{ gallery.title }}</h2>
                         <div>
                             {% for photo in gallery.photos.all %}
-                                {% thumbnail gallery_image.image "x80" as im %}
+                                {% thumbnail photo.image "x80" as im %}
                                     <img src="{{ im.url }}" alt=""/>
                                 {% endthumbnail %}
                             {% endfor %}
