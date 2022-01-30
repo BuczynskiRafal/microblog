@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.db.models import Count
 
 from galleries.models import Gallery
 from galleries.models import Status
@@ -12,8 +13,8 @@ from galleries.forms import PhotoForm
 
 def galleries_list(request):
     """Return a galleries with status published and more than 0 photos."""
-    galleries = Gallery.objects.filter(status=Status.PUBLISHED)
-    galleries = [ g for g in galleries if g.photos.count() > 0 ]
+    galleries = Gallery.objects.filter(status=Status.PUBLISHED).annotate(p_count=Count('photos')).filter(p_count__gt=0)
+    # galleries = [ g for g in galleries if g.photos.count() > 0 ]
     per_page = request.GET.get('per_page', 9)
     page_number = request.GET.get('page')
     paginator = Paginator(galleries, per_page)
