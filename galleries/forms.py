@@ -13,5 +13,5 @@ class GalleryForm(forms.ModelForm):
 class PhotoForm(forms.ModelForm):
     class Meta:
         model = Photo
-        fields = ("title", 'short_description', 'image')
+        fields = ("title", 'short_description', 'status', 'image')
 

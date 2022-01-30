@@ -5,6 +5,7 @@ from django.urls import reverse
 
 from galleries.models import Gallery
 from galleries.models import Status
+from galleries.models import Photo
 from galleries.forms import GalleryForm
 from galleries.forms import PhotoForm
 
@@ -53,3 +54,17 @@ def add_photo_view(request, gallery_id):
         'galleries.html',
         {'photo_form': photo_form, 'gallery': gallery}
     )
+
+
+def update_photo_view(request, gallery_id, photo_id):
+    """Update photo"""
+    gallery = Gallery.objects.get(pk=gallery_id)
+    photo = Photo.objects.get(pk=photo_id)
+    if request.method == 'POST':
+        photo_form = PhotoForm(request.POST, request.FILES, instance=photo)
+        if photo_form.is_valid():
+            photo_form.save()
+            return HttpResponseRedirect(reverse("galleries:add_photo", args=[gallery_id]))
+    else:
+        photo_form = PhotoForm(instance=photo)
+    return render(request, 'galleries.html', {'photo_form':photo_form, 'gallery': gallery})

@@ -52,19 +52,20 @@
                 {% if photo_form %}
                     <div class="row">
                         <h2>Dodaje zdjęcie do galerii: {{ gallery.title }}</h2>
-                        <div>
-                            {% for photo in gallery.photos.all %}
-                                {% thumbnail photo.image "x80" as im %}
-                                    <img src="{{ im.url }}" alt=""/>
-                                {% endthumbnail %}
-                            {% endfor %}
-                        </div>
+
                         <div class="col-6 offset-md-3">
                             <form id="pet_form" method="post" action="." enctype="multipart/form-data">
                                 {% csrf_token %}
                                 {{ photo_form|crispy }}
                                 <input type="submit" name="submit" value="Submit" class="btn btn-primary"/>
                             </form>
+                        </div>
+                        <div class="col-6 offset-md-3">
+                            {% for photo in gallery.photos.all %}
+                                {% thumbnail photo.image "x80" as im %}
+                                    <img src="{{ im.url }}" alt=""/>
+                                {% endthumbnail %}
+                            {% endfor %}
                         </div>
                     </div>
                 {% endif %}
